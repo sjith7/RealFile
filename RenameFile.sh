@@ -1,11 +1,17 @@
 #!/bin/bash
 
+scan_dir=""
 failed=0
 cnt=0
-total=$(ls ~/Music/* | wc -l)
+total=$(ls "$scan_dir" | wc -l)
+cd $scan_dir
+if [[ $? -ne 0 ]]
+then
+	echo -e "$(tput setaf 1)Failed to change directory to scan dir"
+ 	exit 1
+fi
 
-
-for x in ~/Music/*
+for x in *
 do 
 	tput setaf 7
 	echo "$(tput setaf 4)File : "$(tput setaf 7)$x""; 
@@ -16,8 +22,8 @@ do
 	
 	if [[ "$extension" != "$file_extension" ]]; 
 	then 	
-		echo "$(tput setaf 3)Renaming to ${x%.*}.$extension...";
-		mv "$x" "${x%.m4a}.$extension"
+		echo "$(tput setaf 3)Renaming to ${x%.$file_extension}.$extension...";
+		mv "$x" "${x%.$file_extension}.$extension"
 		if [[ $? -eq 0 ]]
 		then
 			echo -e "$(tput setaf 2)Done.\n";
