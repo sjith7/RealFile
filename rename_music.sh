@@ -17,7 +17,7 @@ do
 	if [[ "$extension" != "$file_extension" ]]; 
 	then 	
 		echo "$(tput setaf 3)Renaming to ${x%.*}.$extension...";
-		mv "$x" "${x%.m4a}.mka"
+		mv "$x" "${x%.m4a}.$extension"
 		if [[ $? -eq 0 ]]
 		then
 			echo -e "$(tput setaf 2)Done.\n";
